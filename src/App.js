@@ -52,18 +52,17 @@ function App() {
     setData((data) => [newItem, ...data]); // 함수형 업데이트
   }, []);
 
-  const onRemove = (targetId) => {
-    const newDiaryList = data.filter((it) => it.id !== targetId);
-    setData(newDiaryList);
-  };
+  const onRemove = useCallback((targetId) => {
+    setData((data) => data.filter((it) => it.id !== targetId));
+  }, []);
 
-  const onEdit = (targetId, newContent) => {
-    setData(
+  const onEdit = useCallback((targetId, newContent) => {
+    setData((data) =>
       data.map((it) =>
         it.id === targetId ? { ...it, content: newContent } : it
       )
     );
-  };
+  }, []);
 
   // Dependency Array를 기준으로 값을 다시 사용할 수 있도록 도와주는 Memoization : useMemo
   const getDiaryAnalysis = useMemo(() => {
