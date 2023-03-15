@@ -16,6 +16,16 @@ const CounterB = React.memo(({ obj }) => {
   return <div>{obj.count}</div>;
 });
 
+const areEqual = (prevProps, nextProps) => {
+  //   if (prevProps.obj.count === nextProps.obj.count) {
+  //     return true; // 이전 프롭스와 현재 프롭스가 같다 -> 리렌더링을 일으키지 않게 됨.
+  //   }
+  //   return false; // 이전 프롭스와 현재 프롭스가 다르다 -> 리렌더링을 일으키게 됨.
+  return prevProps.obj.count === nextProps.obj.count;
+};
+
+const MemoizedCounterB = React.memo(CounterB, areEqual);
+
 const OptimizeTest = () => {
   const [count, setCount] = useState(1);
   const [obj, setObj] = useState({
@@ -31,7 +41,7 @@ const OptimizeTest = () => {
       </div>
       <div>
         <h2>Counter B</h2>
-        <CounterB obj={obj} />
+        <MemoizedCounterB obj={obj} />
         <button
           onClick={() =>
             setObj({
