@@ -1,11 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { DiaryDispatchContext } from "./App";
 
 // Component가 Rerendering 되는 경우
 // 1. 본인이 가진 state에 변화가 생겼거나
 // 2. 부모 Component가 rerendering이 일어나거나
 // 3. 자신이 받은 Props가 변경 되는 경우
 
-const DiaryEditor = ({ onCreate }) => {
+const DiaryEditor = () => {
+  const { onCreate } = useContext(DiaryDispatchContext);
+
   // Reference 객체, DOM요소를 가져올 수 있음
   const authorInput = useRef();
   const contentInput = useRef();
